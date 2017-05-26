@@ -7,9 +7,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ ulfius ];
 
   installPhase = ''
+    mkdir -p $out/bin
     mkdir -p $out/lib
     mkdir -p $out/include
-    prefix=$out make install
+    INSTALL=$out/bin make install
   '';
 
   meta = {
