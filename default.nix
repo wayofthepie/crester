@@ -69,10 +69,15 @@ let
     '';
   };
 
-  crester = callPackage ./crester.nix { ulfius = ulfius; };
-
 in stdenv.mkDerivation rec {
   name = "crester-${version}";
   version = "0.0.1";
-  buildInputs =[crester ];
+  src = ./.;
+  buildInputs =[ ulfius yder orcania jansson libmicrohttpd ];
+  installPhase = ''
+    mkdir -p $out/bin
+    mkdir -p $out/lib
+    mkdir -p $out/include
+    INSTALL=$out/bin make install
+  '';
 }
